@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Connect Card · Tap kad, terus buka WhatsApp</title>
-<meta name="description" content="Kad NFC hitam yang buka WhatsApp anda dengan ayat salam siap ditaip. RM29 sekali bayar. Pos seluruh Malaysia atau pick up di Kota Bharu.">
+<meta name="description" content="Kad NFC hitam yang buka WhatsApp anda dengan ayat salam siap ditaip. RM35 sekali bayar. Pos seluruh Malaysia atau pick up di Kota Bharu.">
 <meta name="theme-color" content="#0A0A0B">
 <meta property="og:title" content="Connect Card · Tap kad, terus buka WhatsApp">
-<meta property="og:description" content="Kad NFC hitam yang buka WhatsApp anda dengan ayat salam siap ditaip. RM29 sekali bayar.">
+<meta property="og:description" content="Kad NFC hitam yang buka WhatsApp anda dengan ayat salam siap ditaip. RM35 sekali bayar.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap">
@@ -101,7 +101,7 @@ form{background:var(--surface);border:1px solid var(--line-soft);border-radius:2
 @media (max-width:520px){form{padding:20px}}
 .field{display:grid;gap:8px}
 .field label,.legend{font-size:14px;font-weight:600}
-.field .hint{font-size:13px;color:var(--dim)}
+.hint{font-size:13px;color:var(--dim)}
 input[type=text],input[type=tel],textarea{width:100%;font:inherit;font-size:16px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:13px 14px;transition:border-color .15s}
 input:focus,textarea:focus{outline:none;border-color:var(--silver)}
 textarea{resize:vertical;min-height:84px;line-height:1.45}
@@ -116,13 +116,32 @@ fieldset{border:0;padding:0;margin:0;display:grid;gap:10px}
 .opt input{width:18px;height:18px;accent-color:var(--text);margin:0}
 .opt span small{display:block;color:var(--dim);font-size:13px}
 .opt b{font-weight:600;font-variant-numeric:tabular-nums}
+.packs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.packs{grid-template-columns:1fr}}
+.pack{position:relative;display:grid;gap:4px;border:1px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;transition:border-color .15s,background .15s}
+.pack:hover{border-color:#3A3A42}
+.pack:has(input:checked){border-color:var(--silver);background:var(--raised)}
+.pack input{position:absolute;opacity:0;pointer-events:none}
+.pack:has(input:focus-visible){outline:2px solid var(--silver);outline-offset:3px}
+.pack .pl{font-size:14px;font-weight:600}
+.pack .pp{font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.pack .pe{font-size:12.5px;color:var(--dim)}
+.pack .ps{font-size:12px;font-weight:600;color:var(--ok)}
+.cards{display:grid;gap:22px}
+.cardblock{display:grid;gap:16px}
+.cards.multi .cardblock{border:1px solid var(--line-soft);border-radius:16px;padding:18px;background:var(--bg)}
+.cb-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.cb-h b{font-size:15px;font-weight:600}
+.cb-h span{font-size:13px;color:var(--dim)}
+.rows .save{color:var(--ok)}
+.more{font-size:13px;color:var(--dim)}
 .agree{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted);cursor:pointer}
 .agree input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--text);flex:none}
 .summary{position:sticky;top:88px;background:var(--surface);border:1px solid var(--line-soft);border-radius:24px;padding:24px;display:grid;gap:18px}
 @media (max-width:900px){.summary{position:static}}
 .summary h3{font-size:18px}
 .rows{display:grid;gap:10px;font-size:15px}
-.rows div{display:flex;justify-content:space-between;gap:12px;color:var(--muted)}
+.rows div:not([hidden]){display:flex;justify-content:space-between;gap:12px;color:var(--muted)}
 .rows .tot{color:var(--text);font-size:20px;font-weight:600;border-top:1px solid var(--line);padding-top:14px;margin-top:4px}
 .num{font-variant-numeric:tabular-nums}
 .pay-note{font-size:13px;color:var(--dim);display:flex;gap:8px;align-items:center}
@@ -152,7 +171,7 @@ footer a{color:var(--muted)}
     <nav aria-label="Utama">
       <a href="#cara">Cara guna</a>
       <a href="#soalan">Soalan</a>
-      <a class="btn" href="#tempah">Tempah RM29</a>
+      <a class="btn" href="#tempah">Tempah RM35</a>
     </nav>
   </div>
 </header>
@@ -164,7 +183,7 @@ footer a{color:var(--muted)}
       <div class="eyebrow">Kad NFC untuk WhatsApp</div>
       <h1>Baru kenal? <span>Tap kad, terus buka WhatsApp.</span></h1>
       <p class="lede">Kad PVC hitam yang siap diprogram dengan nombor WhatsApp dan ayat salam anda. Orang yang tap terus nampak chat anda, dengan mesej salam dah ditaip.</p>
-      <div class="price-row"><b>RM29</b><span>sekali bayar</span></div>
+      <div class="price-row"><b>RM35</b><span>sekali bayar · Pek 3 RM89 · Pek 5 RM139</span></div>
       <p class="ship-note">Pos RM8 Semenanjung · RM12 Sabah dan Sarawak · Pick up Kota Bharu percuma</p>
       <div class="hero-cta">
         <a class="btn" href="#tempah">Tempah kad anda</a>
@@ -230,7 +249,7 @@ footer a{color:var(--muted)}
       <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><span>Ayat salam anda sendiri<small>Sehingga 160 aksara, dalam bahasa yang anda mahu.</small></span></li>
       <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><span>Tiada app diperlukan<small>Untuk anda dan untuk orang yang tap.</small></span></li>
       <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><span>Boleh dikemas kini<small>Tukar nombor atau ayat salam tanpa tukar kad.</small></span></li>
-      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><span>Sekali bayar<small>RM29. Tiada langganan bulanan.</small></span></li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><span>Sekali bayar<small>RM35 sekeping, atau pek untuk pasukan. Tiada langganan bulanan.</small></span></li>
     </ul>
   </div>
 </section>
@@ -245,34 +264,22 @@ footer a{color:var(--muted)}
 
     <div class="order">
       <form id="order" novalidate>
-        <div class="field">
-          <label for="name">Nama paparan</label>
-          <input type="text" id="name" name="name" maxlength="40" autocomplete="name" placeholder="Contoh: Ahmad" required aria-describedby="name-err">
-          <div class="err" id="name-err"></div>
-        </div>
+        <fieldset aria-describedby="pack-err">
+          <legend class="legend">Pilih pek</legend>
+          <div class="packs" id="pack-opts"></div>
+          <div class="err" id="pack-err"></div>
+        </fieldset>
 
-        <div class="field">
-          <label for="whatsapp">Nombor WhatsApp</label>
-          <input type="tel" id="whatsapp" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="012-345 6789" required aria-describedby="whatsapp-hint whatsapp-err">
-          <div class="hint" id="whatsapp-hint">Nombor yang akan terbuka bila orang tap kad anda.</div>
-          <div class="err" id="whatsapp-err"></div>
-        </div>
-
-        <div class="field">
-          <label for="greeting">Ayat salam</label>
-          <textarea id="greeting" name="greeting" maxlength="160" rows="3" aria-describedby="greeting-hint greeting-err"></textarea>
-          <div class="counter" id="greeting-count" aria-live="polite">0/160</div>
-          <div class="hint" id="greeting-hint">Mesej yang siap ditaip untuk orang yang tap. Mereka boleh ubah sebelum hantar.</div>
-          <div class="err" id="greeting-err"></div>
-        </div>
+        <div id="cards" class="cards"></div>
 
         <fieldset aria-describedby="delivery-err">
           <legend class="legend">Penghantaran</legend>
           <div id="delivery-opts" style="display:grid;gap:10px"></div>
+          <div class="hint">Satu caj pos untuk semua kad dalam satu tempahan.</div>
           <div class="err" id="delivery-err"></div>
         </fieldset>
 
-        <label class="agree"><input type="checkbox" id="agree" aria-describedby="agree-err"><span>Saya setuju dengan <a href="/polisi" target="_blank" rel="noopener">terma dan polisi</a>, termasuk nombor WhatsApp saya akan terbuka kepada sesiapa yang tap kad ini.</span></label>
+        <label class="agree"><input type="checkbox" id="agree" aria-describedby="agree-err"><span>Saya setuju dengan <a href="/polisi" target="_blank" rel="noopener">terma dan polisi</a>, termasuk nombor WhatsApp pada setiap kad akan terbuka kepada sesiapa yang tap kad itu.</span></label>
         <div class="err" id="agree-err"></div>
 
         <div class="form-err" id="form-err" role="alert"></div>
@@ -282,11 +289,12 @@ footer a{color:var(--muted)}
       <aside class="summary" aria-label="Ringkasan tempahan">
         <h3>Ringkasan</h3>
         <div class="chat" style="margin:0;width:100%;box-shadow:none;background:var(--bg)">
-          <div class="chat-h"><div class="avatar" id="pv-initial">?</div><div><span id="pv-name">Nama anda</span><small>Apa yang orang nampak selepas tap</small></div></div>
+          <div class="chat-h"><div class="avatar" id="pv-initial">?</div><div><span id="pv-name">Nama anda</span><small id="pv-sub">Apa yang orang nampak selepas tap</small></div></div>
           <div class="compose"><div class="bubble" id="pv-bubble">Hi, salam kenal! 👋</div><div class="send" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-6.2L13 12 3 9.7V3.5L22 12z"/></svg></div></div>
         </div>
         <div class="rows">
-          <div><span>Connect Card Standard</span><span class="num" id="sum-card">RM29.00</span></div>
+          <div><span id="sum-pack-label">Connect Card</span><span class="num" id="sum-pack">–</span></div>
+          <div class="save" id="sum-save-row" hidden><span>Jimat berbanding beli satu-satu</span><span class="num" id="sum-save"></span></div>
           <div><span id="sum-del-label">Penghantaran</span><span class="num" id="sum-del">–</span></div>
           <div class="tot"><span>Jumlah</span><span class="num" id="sum-total">–</span></div>
         </div>
@@ -310,6 +318,7 @@ footer a{color:var(--muted)}
       <details><summary>Boleh tukar nombor atau ayat salam nanti?</summary><p>Boleh. Kad menyimpan pautan, bukan nombor anda. Hubungi kami dan kami kemas kini tanpa perlu tukar kad.</p></details>
       <details><summary>Berapa lama kad akan siap?</summary><p>Kad diprogram dan diuji selepas bayaran diterima. Kami akan WhatsApp anda bila kad dipos, atau bila kad sedia untuk diambil.</p></details>
       <details><summary>Di mana tempat pick up?</summary><p>Di Kota Bharu, Kelantan. Lokasi dan masa ambil ditetapkan melalui WhatsApp selepas bayaran.</p></details>
+      <details><summary>Boleh tempah untuk pasukan?</summary><p>Boleh. Pek 3 kad (RM89) dan pek 5 kad (RM139) sesuai untuk pasukan sales atau keluarga. Setiap kad boleh ada nama, nombor WhatsApp dan ayat salam yang berbeza, dan semua dihantar dalam satu bungkusan. Perlukan lebih daripada 5 kad? <a href="/polisi#hubungi">Hubungi kami</a>.</p></details>
       <details><summary>Cara bayaran?</summary><p>Bayaran dibuat di halaman Stripe yang selamat. Kaedah bayaran yang tersedia dipaparkan di halaman itu.</p></details>
     </div>
   </div>
@@ -328,11 +337,13 @@ footer a{color:var(--muted)}
 (function () {
   const $ = id => document.getElementById(id);
   const rm = sen => "RM" + (sen / 100).toFixed(2);
-  const form = $("order"), nameEl = $("name"), waEl = $("whatsapp"), grEl = $("greeting"), agreeEl = $("agree"), payBtn = $("pay");
-  let prices = null, greetingEdited = false;
-  $("yr").textContent = new Date().getFullYear();
-
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const form = $("order"), agreeEl = $("agree"), payBtn = $("pay"), cardsEl = $("cards");
   const defaultGreeting = n => n ? `Hi ${n}, salam kenal! 👋` : "Hi, salam kenal! 👋";
+  let prices = null, active = 0;
+  // Card details live here, so switching between packs never loses what was typed
+  const cards = Array.from({ length: 5 }, () => ({ name: "", whatsapp: "", greeting: "", edited: false }));
+  $("yr").textContent = new Date().getFullYear();
 
   function normPhone(raw) {
     let d = String(raw || "").replace(/\D/g, "");
@@ -340,61 +351,116 @@ footer a{color:var(--muted)}
     if (d.startsWith("1")) d = "60" + d;
     return /^601\d{8,9}$/.test(d) ? d : "";
   }
+  const picked = name => { const r = form.querySelector(`input[name="${name}"]:checked`); return r ? r.value : ""; };
+  const packKey = () => picked("pack") || "1";
+  const cardCount = () => prices ? prices.packs[packKey()].cards : 1;
 
-  function selectedDelivery() {
-    const r = form.querySelector('input[name="delivery"]:checked');
-    return r ? r.value : "";
+  function renderCards() {
+    const n = cardCount();
+    cardsEl.classList.toggle("multi", n > 1);
+    cardsEl.innerHTML = Array.from({ length: n }, (_, i) => {
+      const c = cards[i];
+      const greeting = c.edited ? c.greeting : defaultGreeting(c.name.trim());
+      return `<div class="cardblock" data-i="${i}">
+        ${n > 1 ? `<div class="cb-h"><b>Kad ${i + 1}</b><span>Untuk siapa kad ini?</span></div>` : ""}
+        <div class="field">
+          <label for="name-${i}">Nama paparan</label>
+          <input type="text" id="name-${i}" data-i="${i}" data-k="name" maxlength="40" ${i === 0 ? 'autocomplete="name"' : 'autocomplete="off"'} placeholder="Contoh: Ahmad" value="${esc(c.name)}" aria-describedby="name-${i}-err">
+          <div class="err" id="name-${i}-err"></div>
+        </div>
+        <div class="field">
+          <label for="whatsapp-${i}">Nombor WhatsApp</label>
+          <input type="tel" id="whatsapp-${i}" data-i="${i}" data-k="whatsapp" inputmode="tel" ${i === 0 ? 'autocomplete="tel"' : 'autocomplete="off"'} placeholder="012-345 6789" value="${esc(c.whatsapp)}" aria-describedby="whatsapp-${i}-hint whatsapp-${i}-err">
+          <div class="hint" id="whatsapp-${i}-hint">Nombor yang akan terbuka bila orang tap kad ini.</div>
+          <div class="err" id="whatsapp-${i}-err"></div>
+        </div>
+        <div class="field">
+          <label for="greeting-${i}">Ayat salam</label>
+          <textarea id="greeting-${i}" data-i="${i}" data-k="greeting" maxlength="160" rows="3" aria-describedby="greeting-${i}-hint greeting-${i}-err">${esc(greeting)}</textarea>
+          <div class="counter" id="greeting-${i}-count" aria-live="polite">${greeting.length}/160</div>
+          <div class="hint" id="greeting-${i}-hint">Mesej yang siap ditaip untuk orang yang tap. Mereka boleh ubah sebelum hantar.</div>
+          <div class="err" id="greeting-${i}-err"></div>
+        </div>
+      </div>`;
+    }).join("") + (n > 1 ? `<p class="more">Perlukan lebih daripada 5 kad? <a href="/polisi#hubungi">Hubungi kami</a>.</p>` : "");
+    if (active >= n) active = 0;
+    updatePreview();
   }
 
+  function greetingOf(i) { const c = cards[i]; return c.edited ? c.greeting : defaultGreeting(c.name.trim()); }
+
   function updatePreview() {
-    const n = nameEl.value.trim();
-    if (!greetingEdited) grEl.value = defaultGreeting(n);
-    $("pv-name").textContent = n || "Nama anda";
+    const c = cards[active], n = c.name.trim();
+    $("pv-name").textContent = n || (cardCount() > 1 ? `Kad ${active + 1}` : "Nama anda");
+    $("pv-sub").textContent = cardCount() > 1 ? `Kad ${active + 1} · apa yang orang nampak selepas tap` : "Apa yang orang nampak selepas tap";
     $("pv-initial").textContent = n ? n[0].toUpperCase() : "?";
-    $("pv-bubble").textContent = grEl.value.trim() || " ";
-    $("greeting-count").textContent = `${grEl.value.length}/160`;
+    $("pv-bubble").textContent = greetingOf(active).trim() || " ";
   }
 
   function updateTotals() {
     if (!prices) return;
-    const d = prices.delivery[selectedDelivery()];
-    $("sum-card").textContent = rm(prices.product.price);
+    const p = prices.packs[packKey()], d = prices.delivery[picked("delivery")];
+    const single = prices.packs["1"].price, saved = single * p.cards - p.price;
+    $("sum-pack-label").textContent = p.cards === 1 ? "Connect Card" : `Connect Card · ${p.label}`;
+    $("sum-pack").textContent = rm(p.price);
+    $("sum-save-row").hidden = saved <= 0;
+    $("sum-save").textContent = saved > 0 ? "−" + rm(saved) : "";
     $("sum-del-label").textContent = d ? d.label : "Penghantaran";
     $("sum-del").textContent = d ? (d.fee ? rm(d.fee) : "Percuma") : "Pilih di borang";
-    $("sum-total").textContent = d ? rm(prices.product.price + d.fee) : "–";
-    payBtn.textContent = d ? `Bayar ${rm(prices.product.price + d.fee)}` : "Teruskan ke bayaran";
+    $("sum-total").textContent = d ? rm(p.price + d.fee) : "–";
+    payBtn.textContent = d ? `Bayar ${rm(p.price + d.fee)}` : "Teruskan ke bayaran";
   }
 
-  function setErr(field, msg) {
-    const e = $(field + "-err"); if (e) e.textContent = msg || "";
-    const input = field === "delivery" ? null : $(field);
-    if (input) { input.classList.toggle("invalid", !!msg); input.setAttribute("aria-invalid", msg ? "true" : "false"); }
+  function setErr(key, msg) {
+    const e = $(key + "-err"); if (e) e.textContent = msg || "";
+    const input = $(key);
+    if (input && input.tagName !== "DIV") { input.classList.toggle("invalid", !!msg); input.setAttribute("aria-invalid", msg ? "true" : "false"); }
   }
-  function clearErrs() { ["name", "whatsapp", "greeting", "delivery", "agree"].forEach(f => setErr(f, "")); $("form-err").textContent = ""; }
+  function clearErrs() { form.querySelectorAll(".err").forEach(e => e.textContent = ""); form.querySelectorAll(".invalid").forEach(e => { e.classList.remove("invalid"); e.setAttribute("aria-invalid", "false"); }); $("form-err").textContent = ""; }
 
   function validate() {
     const errs = {};
-    if (nameEl.value.trim().length < 2) errs.name = "Isi nama paparan (sekurang-kurangnya 2 huruf).";
-    if (!normPhone(waEl.value)) errs.whatsapp = "Isi nombor WhatsApp Malaysia yang sah, contoh 012-345 6789.";
-    if (!grEl.value.trim()) errs.greeting = "Isi ayat salam.";
-    if (!selectedDelivery()) errs.delivery = "Pilih cara penghantaran.";
+    for (let i = 0; i < cardCount(); i++) {
+      if (cards[i].name.trim().length < 2) errs[`name-${i}`] = "Isi nama paparan (sekurang-kurangnya 2 huruf).";
+      if (!normPhone(cards[i].whatsapp)) errs[`whatsapp-${i}`] = "Isi nombor WhatsApp Malaysia yang sah, contoh 012-345 6789.";
+      if (!greetingOf(i).trim()) errs[`greeting-${i}`] = "Isi ayat salam.";
+    }
+    if (!picked("delivery")) errs.delivery = "Pilih cara penghantaran.";
     if (!agreeEl.checked) errs.agree = "Sila setuju dengan terma dan polisi.";
     return errs;
   }
 
   function showErrs(errs) {
     Object.entries(errs).forEach(([k, v]) => setErr(k, v));
-    const first = ["name", "whatsapp", "greeting", "delivery", "agree"].find(k => errs[k]);
-    if (first) {
-      const el = first === "delivery" ? form.querySelector('input[name="delivery"]') : $(first);
-      if (el) el.focus();
-    }
+    const order = [];
+    for (let i = 0; i < cardCount(); i++) order.push(`name-${i}`, `whatsapp-${i}`, `greeting-${i}`);
+    order.push("pack", "delivery", "agree");
+    const first = order.find(k => errs[k]);
+    if (!first) return;
+    const el = first === "delivery" ? form.querySelector('input[name="delivery"]') : first === "pack" ? form.querySelector('input[name="pack"]') : $(first);
+    if (el) el.focus();
   }
 
-  nameEl.addEventListener("input", () => { setErr("name", ""); updatePreview(); });
-  grEl.addEventListener("input", () => { greetingEdited = grEl.value.trim() !== "" && grEl.value !== defaultGreeting(nameEl.value.trim()); setErr("greeting", ""); updatePreview(); });
-  waEl.addEventListener("input", () => setErr("whatsapp", ""));
-  waEl.addEventListener("blur", () => { if (waEl.value.trim() && !normPhone(waEl.value)) setErr("whatsapp", "Nombor ini nampak tak lengkap. Contoh: 012-345 6789."); });
+  cardsEl.addEventListener("input", e => {
+    const t = e.target, i = +t.dataset.i, k = t.dataset.k;
+    if (!k) return;
+    const c = cards[i];
+    if (k === "greeting") {
+      c.greeting = t.value;
+      c.edited = t.value.trim() !== "" && t.value !== defaultGreeting(c.name.trim());
+      $(`greeting-${i}-count`).textContent = `${t.value.length}/160`;
+    } else {
+      c[k] = t.value;
+      if (k === "name" && !c.edited) { const g = $(`greeting-${i}`); g.value = defaultGreeting(t.value.trim()); $(`greeting-${i}-count`).textContent = `${g.value.length}/160`; }
+    }
+    setErr(`${k}-${i}`, "");
+    active = i; updatePreview();
+  });
+  cardsEl.addEventListener("focusin", e => { if (e.target.dataset.i) { active = +e.target.dataset.i; updatePreview(); } });
+  cardsEl.addEventListener("focusout", e => {
+    const t = e.target;
+    if (t.dataset.k === "whatsapp" && t.value.trim() && !normPhone(t.value)) setErr(t.id, "Nombor ini nampak tak lengkap. Contoh: 012-345 6789.");
+  });
   agreeEl.addEventListener("change", () => setErr("agree", ""));
 
   form.addEventListener("submit", async e => {
@@ -406,10 +472,16 @@ footer a{color:var(--muted)}
     const label = payBtn.textContent;
     payBtn.textContent = "Membuka halaman bayaran…";
     try {
+      const n = cardCount();
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: nameEl.value, whatsapp: waEl.value, greeting: grEl.value, delivery: selectedDelivery(), agree: agreeEl.checked })
+        body: JSON.stringify({
+          pack: packKey(),
+          cards: cards.slice(0, n).map((c, i) => ({ name: c.name, whatsapp: c.whatsapp, greeting: greetingOf(i) })),
+          delivery: picked("delivery"),
+          agree: agreeEl.checked
+        })
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.url) { location.href = data.url; return; }
@@ -424,13 +496,21 @@ footer a{color:var(--muted)}
 
   fetch("/prices.json").then(r => r.json()).then(p => {
     prices = p;
+    const single = p.packs["1"].price;
+    $("pack-opts").innerHTML = Object.entries(p.packs).map(([k, pk], idx) => {
+      const each = pk.price / pk.cards, saved = single * pk.cards - pk.price;
+      return `<label class="pack"><input type="radio" name="pack" value="${k}"${idx === 0 ? " checked" : ""}>
+        <span class="pl">${pk.label}</span><span class="pp">${rm(pk.price)}</span>
+        <span class="pe">${pk.cards > 1 ? `${rm(each)} sekeping` : "Untuk diri sendiri"}</span>
+        ${saved > 0 ? `<span class="ps">Jimat ${rm(saved)}</span>` : ""}</label>`;
+    }).join("");
     $("delivery-opts").innerHTML = Object.entries(p.delivery).map(([k, d]) => `
       <label class="opt"><input type="radio" name="delivery" value="${k}"><span>${d.label}<small>${d.ship ? "Alamat diisi di halaman bayaran" : "Lokasi dan masa ditetapkan melalui WhatsApp"}</small></span><b>${d.fee ? rm(d.fee) : "Percuma"}</b></label>`).join("");
+    $("pack-opts").addEventListener("change", () => { setErr("pack", ""); renderCards(); updateTotals(); });
     $("delivery-opts").addEventListener("change", () => { setErr("delivery", ""); updateTotals(); });
+    renderCards();
     updateTotals();
   }).catch(() => { $("form-err").textContent = "Tak dapat muat harga. Sila muat semula page."; });
-
-  updatePreview();
 })();
 </script>
 </body>

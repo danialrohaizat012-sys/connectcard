@@ -1,9 +1,13 @@
 {
   "currency": "myr",
   "product": {
-    "name": "Connect Card Standard",
-    "description": "Kad PVC hitam dengan NFC, siap diprogram ke WhatsApp anda",
-    "price": 2900
+    "name": "Connect Card",
+    "description": "Kad PVC hitam dengan NFC, siap diprogram ke WhatsApp"
+  },
+  "packs": {
+    "1": { "label": "1 kad", "cards": 1, "price": 3500 },
+    "3": { "label": "Pek 3 kad", "cards": 3, "price": 8900 },
+    "5": { "label": "Pek 5 kad", "cards": 5, "price": 13900 }
   },
   "delivery": {
     "pos-sm": { "label": "Pos ke Semenanjung", "fee": 800, "ship": true },

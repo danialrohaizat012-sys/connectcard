@@ -24,11 +24,13 @@ test/                ujian (npm test)
 
 ## Harga
 
-Ubah dalam `public/prices.json` sahaja (dalam sen):
+Ubah dalam `public/prices.json` sahaja (dalam sen). Pek boleh ditambah atau ditukar di bahagian `packs`; borang di website ikut secara automatik.
 
 | | Harga |
 |---|---|
-| Connect Card Standard | RM29 |
+| 1 kad | RM35 |
+| Pek 3 kad | RM89 (RM29.67 sekeping) |
+| Pek 5 kad | RM139 (RM27.80 sekeping) |
 | Pos Semenanjung | RM8 |
 | Pos Sabah, Sarawak dan Labuan | RM12 |
 | Pick up Kota Bharu | RM0 (tetap bayar online) |
@@ -54,9 +56,10 @@ Server sentiasa kira harga dari fail ini. Harga yang dihantar dari browser diaba
 ## Proses setiap tempahan (sasaran ~10 minit)
 
 1. Stripe Dashboard → **Payments** → buka bayaran baru. Di **Metadata**:
-   - `card_name`, `card_whatsapp`, `card_greeting`: butiran untuk kad
-   - `delivery`: `pos-sm`, `pos-ss` atau `pickup`
-   - `slug_suggestion`: cadangan pautan kad, contoh `ahmad-k3x9`
+   - `pack` dan `cards`: pek yang dibeli dan bilangan kad
+   - `card_1`, `card_2`, …: satu baris untuk setiap kad, contoh
+     `{"name":"Ahmad","whatsapp":"60123456789","greeting":"Hi Ahmad, salam kenal! 👋","slug":"ahmad-k3x9"}`
+   - `delivery`: `pos-sm`, `pos-ss` atau `pickup` (satu bungkusan untuk semua kad)
    - Alamat pos dan nombor telefon pembeli ada di bahagian **Shipping** dan **Customer**.
 2. Tambah kad dalam `data/cards.json`, kemudian commit dan push. Vercel deploy semula secara automatik.
    ```json

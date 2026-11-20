@@ -4,7 +4,8 @@ const { normalizePhone, validateOrder, buildSessionParams } = require("../lib/or
 const { createHandler } = require("../api/checkout");
 const tap = require("../api/tap");
 
-const good = { name: "Ahmad", whatsapp: "012-345 6789", greeting: "", delivery: "pos-sm", agree: true };
+const card = { name: "Ahmad", whatsapp: "012-345 6789", greeting: "" };
+const good = { pack: "1", cards: [card], delivery: "pos-sm", agree: true };
 
 function mockRes() {
   return {
@@ -27,28 +28,32 @@ test("normalizePhone accepts common Malaysian formats", () => {
 test("validateOrder fills a default greeting and rejects bad input", () => {
   const ok = validateOrder(good);
   assert.equal(ok.ok, true);
-  assert.equal(ok.order.greeting, "Hi Ahmad, salam kenal! 👋");
-  assert.equal(ok.order.whatsapp, "60123456789");
+  assert.equal(ok.order.cards[0].greeting, "Hi Ahmad, salam kenal! 👋");
+  assert.equal(ok.order.cards[0].whatsapp, "60123456789");
 
-  const bad = validateOrder({ name: "A", whatsapp: "x", delivery: "drone", agree: false });
+  const bad = validateOrder({ pack: "1", cards: [{ name: "A", whatsapp: "x" }], delivery: "drone", agree: false });
   assert.equal(bad.ok, false);
-  assert.deepEqual(Object.keys(bad.errors).sort(), ["agree", "delivery", "name", "whatsapp"]);
+  assert.deepEqual(Object.keys(bad.errors).sort(), ["agree", "delivery", "name-0", "whatsapp-0"]);
 });
 
 test("validateOrder trims and caps long text", () => {
-  const v = validateOrder({ ...good, name: "  " + "x".repeat(80), greeting: "y".repeat(500) });
-  assert.equal(v.order.name.length, 40);
-  assert.equal(v.order.greeting.length, 160);
+  const v = validateOrder({ ...good, cards: [{ ...card, name: "  " + "x".repeat(80), greeting: "y".repeat(500) }] });
+  assert.equal(v.order.cards[0].name.length, 40);
+  assert.equal(v.order.cards[0].greeting.length, 160);
 });
 
-test("session uses server prices: post to Semenanjung", () => {
+test("session uses server prices: 1 card RM35, post to Semenanjung", () => {
   const p = buildSessionParams(validateOrder(good).order, "https://connectcard.binalab.my");
-  assert.equal(p.line_items[0].price_data.unit_amount, 2900);
+  assert.equal(p.line_items[0].price_data.unit_amount, 3500);
+  assert.equal(p.line_items[0].quantity, 1);
+  assert.equal(p.line_items[0].price_data.product_data.name, "Connect Card");
   assert.equal(p.line_items[0].price_data.currency, "myr");
   assert.equal(p.shipping_options[0].shipping_rate_data.fixed_amount.amount, 800);
   assert.deepEqual(p.shipping_address_collection.allowed_countries, ["MY"]);
-  assert.equal(p.metadata.card_whatsapp, "60123456789");
-  assert.match(p.metadata.slug_suggestion, /^ahmad-[a-z0-9]{1,4}$/);
+  const c1 = JSON.parse(p.metadata.card_1);
+  assert.equal(c1.whatsapp, "60123456789");
+  assert.match(c1.slug, /^ahmad-[a-z0-9]{4}$/);
+  assert.equal(p.metadata.cards, "1");
   assert.equal(p.success_url, "https://connectcard.binalab.my/terima-kasih?id={CHECKOUT_SESSION_ID}");
   for (const v of Object.values(p.metadata)) assert.ok(String(v).length <= 500, "Stripe metadata limit");
 });
@@ -70,18 +75,46 @@ test("checkout handler: 400 on bad form, 200 with Stripe URL, ignores client pri
   const r1 = mockRes();
   await handler({ method: "POST", headers: { host: "localhost" }, body: { name: "" } }, r1);
   assert.equal(r1.statusCode, 400);
-  assert.ok(r1.json().fields.name);
+  assert.ok(r1.json().fields["name-0"]);
 
   const r2 = mockRes();
   await handler({ method: "POST", headers: { host: "shop.test", "x-forwarded-proto": "https" }, body: { ...good, price: 1 } }, r2);
   assert.equal(r2.statusCode, 200);
   assert.equal(r2.json().url, "https://checkout.stripe.com/c/pay/cs_test_123");
-  assert.equal(sent.line_items[0].price_data.unit_amount, 2900);
+  assert.equal(sent.line_items[0].price_data.unit_amount, 3500);
   assert.equal(sent.cancel_url, "https://shop.test/#tempah");
 
   const r3 = mockRes();
   await handler({ method: "GET", headers: {} }, r3);
   assert.equal(r3.statusCode, 405);
+});
+
+test("packs: 3 cards RM89 and 5 cards RM139, each card validated and stored", () => {
+  const three = [card, { name: "Siti", whatsapp: "+60 11-2345 6789", greeting: "Assalamualaikum Siti!" }, { name: "Raju", whatsapp: "019 876 5432" }];
+  const v3 = validateOrder({ pack: "3", cards: three, delivery: "pos-ss", agree: true });
+  assert.equal(v3.ok, true);
+  const p3 = buildSessionParams(v3.order, "https://x");
+  assert.equal(p3.line_items[0].price_data.unit_amount, 8900);
+  assert.equal(p3.line_items[0].price_data.product_data.name, "Connect Card · Pek 3 kad");
+  assert.equal(p3.shipping_options[0].shipping_rate_data.fixed_amount.amount, 1200); // one postage per order
+  assert.equal(JSON.parse(p3.metadata.card_2).greeting, "Assalamualaikum Siti!");
+  assert.equal(JSON.parse(p3.metadata.card_3).greeting, "Hi Raju, salam kenal! 👋");
+  assert.equal(p3.metadata.card_4, undefined);
+
+  const five = Array.from({ length: 5 }, (_, i) => ({ name: "Staf " + (i + 1), whatsapp: "01234567" + (10 + i), greeting: "y".repeat(160) }));
+  const p5 = buildSessionParams(validateOrder({ pack: "5", cards: five, delivery: "pickup", agree: true }).order, "https://x");
+  assert.equal(p5.line_items[0].price_data.unit_amount, 13900);
+  for (const v of Object.values(p5.metadata)) assert.ok(String(v).length <= 500, "Stripe metadata limit");
+  assert.ok(Object.keys(p5.metadata).length <= 50);
+});
+
+test("packs: wrong card count, unknown pack and an empty second card are rejected", () => {
+  assert.equal(validateOrder({ pack: "3", cards: [card], delivery: "pos-sm", agree: true }).errors.pack, "Isi butiran untuk 3 kad.");
+  assert.ok(validateOrder({ pack: "2", cards: [card, card], delivery: "pos-sm", agree: true }).errors.pack);
+  assert.ok(validateOrder({ pack: "__proto__", cards: [card], delivery: "pos-sm", agree: true }).errors.pack);
+  const e = validateOrder({ pack: "3", cards: [card, {}, card], delivery: "pos-sm", agree: true }).errors;
+  assert.ok(e["name-1"] && e["whatsapp-1"]);
+  assert.equal(e["name-0"], undefined);
 });
 
 test("checkout handler: friendly errors when Stripe is missing or fails", async () => {
