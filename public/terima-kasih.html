@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Terima kasih · Connect Card</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0A0A0B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&display=swap">
+<style>
+:root{--bg:#0A0A0B;--surface:#131316;--line:#26262C;--text:#F2F2F4;--muted:#A3A3AD;--dim:#7D7D87;--ok:#5FD39A;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:"Inter Tight",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;display:grid;place-items:center;padding:32px max(20px,env(safe-area-inset-left))}
+main{max-width:520px;width:100%;display:grid;gap:24px}
+.tick{width:56px;height:56px;border-radius:50%;background:rgba(95,211,154,.12);color:var(--ok);display:grid;place-items:center}
+h1{margin:0;font-size:clamp(30px,6vw,40px);font-weight:500;letter-spacing:-.03em;line-height:1.1}
+p{margin:0;color:var(--muted)}
+ol{margin:0;padding:0;list-style:none;display:grid;gap:0;border-top:1px solid var(--line)}
+li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+li b{font-size:13px;color:var(--dim);font-weight:600;padding-top:2px}
+li span{color:var(--text)}
+li small{display:block;color:var(--muted);font-size:14px}
+.ref{font-size:13px;color:var(--dim);word-break:break-all}
+a{color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;border:1px solid var(--line);text-decoration:none;font-weight:600;justify-self:start}
+</style>
+</head>
+<body>
+<main>
+  <div class="tick" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></div>
+  <div style="display:grid;gap:10px">
+    <h1>Terima kasih. Tempahan anda diterima.</h1>
+    <p>Resit bayaran dihantar oleh Stripe ke emel anda.</p>
+  </div>
+  <ol>
+    <li><b>01</b><span>Kami program kad anda<small>Nombor WhatsApp dan ayat salam anda dimasukkan ke dalam kad.</small></span></li>
+    <li><b>02</b><span>Kami uji pada telefon sebenar<small>Untuk pastikan chat anda terbuka dengan betul.</small></span></li>
+    <li><b>03</b><span>Kami WhatsApp anda<small>Bila kad dipos, atau untuk tetapkan lokasi dan masa pick up di Kota Bharu.</small></span></li>
+  </ol>
+  <p class="ref" id="ref"></p>
+  <a class="btn" href="/">Kembali ke laman utama</a>
+</main>
+<script>
+  const id = new URLSearchParams(location.search).get("id");
+  if (id && /^cs_[A-Za-z0-9_]+$/.test(id)) document.getElementById("ref").textContent = "Rujukan tempahan: …" + id.slice(-10);
+</script>
+</body>
+</html>

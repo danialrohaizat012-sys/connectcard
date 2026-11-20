@@ -1,0 +1,14 @@
+{
+  "name": "connectcard",
+  "private": true,
+  "description": "Connect Card: kad NFC yang buka WhatsApp. Website jualan dan pautan tap.",
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "stripe": "17.7.0"
+  }
+}

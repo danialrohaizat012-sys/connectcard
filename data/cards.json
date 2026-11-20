@@ -1,0 +1,9 @@
+{
+  "demo": {
+    "name": "Danial",
+    "whatsapp": "60123456789",
+    "greeting": "Hi Danial, salam kenal! 👋",
+    "active": false,
+    "note": "Kad demo. Tukar nombor kepada nombor sendiri dan set active: true sebelum demo."
+  }
+}

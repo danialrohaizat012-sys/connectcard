@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Connect Card · Tap kad, terus buka WhatsApp</title>
+<meta name="description" content="Kad NFC hitam yang buka WhatsApp anda dengan ayat salam siap ditaip. RM29 sekali bayar. Pos seluruh Malaysia atau pick up di Kota Bharu.">
+<meta name="theme-color" content="#0A0A0B">
+<meta property="og:title" content="Connect Card · Tap kad, terus buka WhatsApp">
+<meta property="og:description" content="Kad NFC hitam yang buka WhatsApp anda dengan ayat salam siap ditaip. RM29 sekali bayar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap">
+<style>
+/* Matte black like the card itself; one silver accent; white for the single primary action. */
+:root{
+  --bg:#0A0A0B; --surface:#131316; --raised:#1A1A1E; --line:#26262C; --line-soft:#1E1E23;
+  --text:#F2F2F4; --muted:#A3A3AD; --dim:#7D7D87; --silver:#C8C8CF;
+  --ok:#5FD39A; --err:#FF7A6E; --bubble:#EDEEF1; --bubble-ink:#16161A;
+  --font:"Inter Tight",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r:18px; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--text)}
+:focus-visible{outline:2px solid var(--silver);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3{margin:0;font-weight:500;letter-spacing:-.025em;text-wrap:balance}
+h2{font-size:clamp(28px,4vw,40px);line-height:1.1}
+p{margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;border:0;background:var(--text);color:var(--bg);font:inherit;font-weight:600;font-size:16px;text-decoration:none;cursor:pointer;transition:transform .15s,opacity .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn:disabled{opacity:.55;cursor:wait;transform:none}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+
+/* Header */
+.top{position:sticky;top:0;z-index:10;background:rgba(10,10,11,.82);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line-soft)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.mark{font-size:13px;font-weight:600;letter-spacing:.34em;text-decoration:none}
+.top nav{display:flex;gap:22px;align-items:center;font-size:14px}
+.top nav a{text-decoration:none;color:var(--muted)}
+.top nav a:hover{color:var(--text)}
+.top nav a.btn{color:var(--bg)}
+.top .btn{min-height:40px;padding:0 18px;font-size:14px}
+@media (max-width:640px){.top nav a:not(.btn){display:none}}
+
+/* Hero */
+.hero{padding:72px 0 88px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:56px;align-items:center}
+@media (max-width:900px){.hero{padding:40px 0 64px}.hero .wrap{grid-template-columns:1fr;gap:44px}}
+.hero h1{font-size:clamp(40px,6vw,68px);line-height:1.02;font-weight:500;letter-spacing:-.035em;margin:18px 0 20px}
+.hero h1 span{color:var(--muted);font-weight:300}
+.lede{font-size:18px;color:var(--muted);max-width:30em}
+.price-row{display:flex;align-items:baseline;gap:12px;margin:28px 0 8px;flex-wrap:wrap}
+.price-row b{font-size:34px;font-weight:600;letter-spacing:-.02em}
+.price-row span{color:var(--muted)}
+.ship-note{font-size:14px;color:var(--dim)}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+
+.visual{position:relative;display:grid;gap:0;justify-items:center}
+.card{width:100%;max-width:480px;aspect-ratio:856/540;border-radius:3.7% / 5.9%;position:relative;overflow:hidden;
+  background:radial-gradient(120% 90% at 0% 0%,#1A1A1F 0%,#0A0A0B 55%);border:1px solid #1C1C21;
+  box-shadow:0 40px 80px -40px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.02) inset;transform:rotate(-4deg)}
+.card svg{position:absolute;inset:0;width:100%;height:100%}
+.card .cm{position:absolute;left:6.5%;top:9.6%;font-size:clamp(9px,1.6vw,13px);font-weight:600;letter-spacing:.34em}
+.card .ct{position:absolute;left:6.5%;bottom:13%;font-size:clamp(18px,3.6vw,30px);font-weight:300;letter-spacing:-.02em}
+.card .cs{position:absolute;left:6.5%;bottom:7.5%;font-size:clamp(8px,1.3vw,11px);color:var(--muted)}
+.chat{width:min(340px,86%);margin-top:-34px;margin-left:24%;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:14px;display:grid;gap:12px;box-shadow:0 30px 60px -30px rgba(0,0,0,.9);position:relative}
+@media (max-width:520px){.chat{margin-left:0}}
+.chat-h{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--raised);border:1px solid var(--line);display:grid;place-items:center;font-size:13px;color:var(--silver)}
+.chat-h small{display:block;font-weight:400;color:var(--dim);font-size:12px}
+.compose{display:flex;gap:8px;align-items:flex-end}
+.bubble{flex:1;background:var(--bubble);color:var(--bubble-ink);border-radius:16px;padding:10px 12px;font-size:14.5px;line-height:1.45;white-space:pre-wrap;word-break:break-word;min-height:42px}
+.send{width:42px;height:42px;border-radius:50%;background:var(--text);color:var(--bg);display:grid;place-items:center;flex:none}
+.chat-foot{font-size:12px;color:var(--dim)}
+
+/* Sections */
+section{padding:88px 0;border-top:1px solid var(--line-soft)}
+@media (max-width:700px){section{padding:64px 0}}
+.sec-head{display:grid;gap:12px;margin-bottom:40px;max-width:640px}
+.sec-head p{color:var(--muted);font-size:17px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;counter-reset:s}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
+.step{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r);padding:24px;display:grid;gap:10px;align-content:start}
+.step .n{font-size:13px;color:var(--dim);font-weight:600;letter-spacing:.1em}
+.step h3{font-size:20px}
+.step p{color:var(--muted);font-size:15px}
+.incl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px;list-style:none;margin:0;padding:0}
+@media (max-width:700px){.incl{grid-template-columns:1fr}}
+.incl li{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--line-soft);font-size:16px}
+.incl svg{flex:none;margin-top:3px;color:var(--silver)}
+.incl small{display:block;color:var(--dim);font-size:14px;margin-top:2px}
+
+/* Order */
+.order{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:28px;align-items:start}
+@media (max-width:900px){.order{grid-template-columns:1fr}}
+form{background:var(--surface);border:1px solid var(--line-soft);border-radius:24px;padding:28px;display:grid;gap:22px}
+@media (max-width:520px){form{padding:20px}}
+.field{display:grid;gap:8px}
+.field label,.legend{font-size:14px;font-weight:600}
+.field .hint{font-size:13px;color:var(--dim)}
+input[type=text],input[type=tel],textarea{width:100%;font:inherit;font-size:16px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:13px 14px;transition:border-color .15s}
+input:focus,textarea:focus{outline:none;border-color:var(--silver)}
+textarea{resize:vertical;min-height:84px;line-height:1.45}
+.counter{font-size:12px;color:var(--dim);text-align:right;margin-top:-4px}
+.err{font-size:13px;color:var(--err);font-weight:500}
+.err:empty{display:none}
+.invalid{border-color:var(--err)!important}
+fieldset{border:0;padding:0;margin:0;display:grid;gap:10px}
+.opt{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s,background .15s}
+.opt:hover{border-color:#3A3A42}
+.opt:has(input:checked){border-color:var(--silver);background:var(--raised)}
+.opt input{width:18px;height:18px;accent-color:var(--text);margin:0}
+.opt span small{display:block;color:var(--dim);font-size:13px}
+.opt b{font-weight:600;font-variant-numeric:tabular-nums}
+.agree{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted);cursor:pointer}
+.agree input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--text);flex:none}
+.summary{position:sticky;top:88px;background:var(--surface);border:1px solid var(--line-soft);border-radius:24px;padding:24px;display:grid;gap:18px}
+@media (max-width:900px){.summary{position:static}}
+.summary h3{font-size:18px}
+.rows{display:grid;gap:10px;font-size:15px}
+.rows div{display:flex;justify-content:space-between;gap:12px;color:var(--muted)}
+.rows .tot{color:var(--text);font-size:20px;font-weight:600;border-top:1px solid var(--line);padding-top:14px;margin-top:4px}
+.num{font-variant-numeric:tabular-nums}
+.pay-note{font-size:13px;color:var(--dim);display:flex;gap:8px;align-items:center}
+.form-err{background:rgba(255,122,110,.1);border:1px solid rgba(255,122,110,.35);color:var(--err);border-radius:12px;padding:12px 14px;font-size:14px}
+.form-err:empty{display:none}
+
+/* FAQ */
+.faq{display:grid;max-width:760px}
+details{border-bottom:1px solid var(--line-soft)}
+summary{list-style:none;cursor:pointer;padding:20px 40px 20px 0;font-size:17px;font-weight:500;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";position:absolute;right:6px;top:50%;width:10px;height:10px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:translateY(-70%) rotate(45deg);transition:transform .2s}
+details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+details p{color:var(--muted);padding:0 0 22px;max-width:62ch}
+
+footer{border-top:1px solid var(--line-soft);padding:36px 0 calc(36px + env(safe-area-inset-bottom));font-size:14px;color:var(--dim)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="/">CONNECT CARD</a>
+    <nav aria-label="Utama">
+      <a href="#cara">Cara guna</a>
+      <a href="#soalan">Soalan</a>
+      <a class="btn" href="#tempah">Tempah RM29</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Kad NFC untuk WhatsApp</div>
+      <h1>Baru kenal? <span>Tap kad, terus buka WhatsApp.</span></h1>
+      <p class="lede">Kad PVC hitam yang siap diprogram dengan nombor WhatsApp dan ayat salam anda. Orang yang tap terus nampak chat anda, dengan mesej salam dah ditaip.</p>
+      <div class="price-row"><b>RM29</b><span>sekali bayar</span></div>
+      <p class="ship-note">Pos RM8 Semenanjung · RM12 Sabah dan Sarawak · Pick up Kota Bharu percuma</p>
+      <div class="hero-cta">
+        <a class="btn" href="#tempah">Tempah kad anda</a>
+        <a class="btn ghost" href="#cara">Cara ia berfungsi</a>
+      </div>
+    </div>
+
+    <div class="visual" aria-label="Contoh kad dan chat yang terbuka selepas tap">
+      <div class="card" aria-hidden="true">
+        <svg viewBox="0 0 856 540" preserveAspectRatio="xMidYMid slice">
+          <g fill="none">
+            <circle cx="640" cy="270" r="54" stroke="#3A3A42" stroke-width="2"/>
+            <circle cx="640" cy="270" r="88" stroke="#1E1E23" stroke-width="1.6"/>
+            <circle cx="640" cy="270" r="122" stroke="#1E1E23" stroke-width="1.6"/>
+            <circle cx="640" cy="270" r="156" stroke="#1E1E23" stroke-width="1.6"/>
+            <circle cx="640" cy="270" r="190" stroke="#1E1E23" stroke-width="1.6"/>
+            <circle cx="640" cy="270" r="224" stroke="#1E1E23" stroke-width="1.6"/>
+            <circle cx="640" cy="270" r="258" stroke="#1E1E23" stroke-width="1.6"/>
+            <circle cx="640" cy="270" r="292" stroke="#1E1E23" stroke-width="1.6"/>
+            <circle cx="640" cy="270" r="326" stroke="#1E1E23" stroke-width="1.6"/>
+          </g>
+          <g fill="none" stroke="#C8C8CF" stroke-width="3" stroke-linecap="round">
+            <path d="M626 258 a16 16 0 0 1 0 24"/><path d="M639 247 a31 31 0 0 1 0 46"/><path d="M652 236 a46 46 0 0 1 0 68"/>
+          </g>
+        </svg>
+        <div class="cm">CONNECT CARD</div>
+        <div class="ct">Tap untuk WhatsApp</div>
+        <div class="cs">Dekatkan telefon pada kad</div>
+      </div>
+      <div class="chat" aria-hidden="true">
+        <div class="chat-h"><div class="avatar">A</div><div>Ahmad<small>Chat baru dibuka</small></div></div>
+        <div class="compose"><div class="bubble">Hi Ahmad, salam kenal! 👋</div><div class="send"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-6.2L13 12 3 9.7V3.5L22 12z"/></svg></div></div>
+        <div class="chat-foot">Mesej dah ditaip. Mereka cuma tekan Hantar.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="cara">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Cara ia berfungsi</div>
+      <h2>Kenalan baru jadi chat dalam satu tap.</h2>
+      <p>Tak perlu tukar kad nama atau eja nombor telefon. Orang yang anda baru jumpa terus ada cara untuk hubungi anda.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>Tempah</h3><p>Isi nama, nombor WhatsApp dan ayat salam anda. Bayar terus di sini.</p></div>
+      <div class="step"><div class="n">02</div><h3>Kami siapkan</h3><p>Kad diprogram dan diuji pada telefon sebenar, kemudian dipos atau sedia untuk diambil di Kota Bharu.</p></div>
+      <div class="step"><div class="n">03</div><h3>Tap dan chat</h3><p>Orang dekatkan telefon pada kad. Chat anda terbuka dengan ayat salam. Mereka tekan Hantar bila bersedia.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Apa yang anda dapat</div>
+      <h2>Satu kad. Siap guna bila sampai.</h2>
+    </div>
+    <ul class="incl">
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><span>Kad PVC hitam<small>Saiz kad bank, 85.6 × 54 mm. Muat dalam dompet.</small></span></li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><span>Cip NFC siap diprogram<small>Diuji sebelum dihantar. Tiada setup di pihak anda.</small></span></li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><span>Ayat salam anda sendiri<small>Sehingga 160 aksara, dalam bahasa yang anda mahu.</small></span></li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><span>Tiada app diperlukan<small>Untuk anda dan untuk orang yang tap.</small></span></li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><span>Boleh dikemas kini<small>Tukar nombor atau ayat salam tanpa tukar kad.</small></span></li>
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><span>Sekali bayar<small>RM29. Tiada langganan bulanan.</small></span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="tempah">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Tempah</div>
+      <h2>Tempah Connect Card anda.</h2>
+      <p>Isi butiran di bawah. Anda akan dibawa ke halaman bayaran Stripe yang selamat.</p>
+    </div>
+
+    <div class="order">
+      <form id="order" novalidate>
+        <div class="field">
+          <label for="name">Nama paparan</label>
+          <input type="text" id="name" name="name" maxlength="40" autocomplete="name" placeholder="Contoh: Ahmad" required aria-describedby="name-err">
+          <div class="err" id="name-err"></div>
+        </div>
+
+        <div class="field">
+          <label for="whatsapp">Nombor WhatsApp</label>
+          <input type="tel" id="whatsapp" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="012-345 6789" required aria-describedby="whatsapp-hint whatsapp-err">
+          <div class="hint" id="whatsapp-hint">Nombor yang akan terbuka bila orang tap kad anda.</div>
+          <div class="err" id="whatsapp-err"></div>
+        </div>
+
+        <div class="field">
+          <label for="greeting">Ayat salam</label>
+          <textarea id="greeting" name="greeting" maxlength="160" rows="3" aria-describedby="greeting-hint greeting-err"></textarea>
+          <div class="counter" id="greeting-count" aria-live="polite">0/160</div>
+          <div class="hint" id="greeting-hint">Mesej yang siap ditaip untuk orang yang tap. Mereka boleh ubah sebelum hantar.</div>
+          <div class="err" id="greeting-err"></div>
+        </div>
+
+        <fieldset aria-describedby="delivery-err">
+          <legend class="legend">Penghantaran</legend>
+          <div id="delivery-opts" style="display:grid;gap:10px"></div>
+          <div class="err" id="delivery-err"></div>
+        </fieldset>
+
+        <label class="agree"><input type="checkbox" id="agree" aria-describedby="agree-err"><span>Saya setuju dengan <a href="/polisi" target="_blank" rel="noopener">terma dan polisi</a>, termasuk nombor WhatsApp saya akan terbuka kepada sesiapa yang tap kad ini.</span></label>
+        <div class="err" id="agree-err"></div>
+
+        <div class="form-err" id="form-err" role="alert"></div>
+        <button class="btn" type="submit" id="pay">Teruskan ke bayaran</button>
+      </form>
+
+      <aside class="summary" aria-label="Ringkasan tempahan">
+        <h3>Ringkasan</h3>
+        <div class="chat" style="margin:0;width:100%;box-shadow:none;background:var(--bg)">
+          <div class="chat-h"><div class="avatar" id="pv-initial">?</div><div><span id="pv-name">Nama anda</span><small>Apa yang orang nampak selepas tap</small></div></div>
+          <div class="compose"><div class="bubble" id="pv-bubble">Hi, salam kenal! 👋</div><div class="send" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-6.2L13 12 3 9.7V3.5L22 12z"/></svg></div></div>
+        </div>
+        <div class="rows">
+          <div><span>Connect Card Standard</span><span class="num" id="sum-card">RM29.00</span></div>
+          <div><span id="sum-del-label">Penghantaran</span><span class="num" id="sum-del">–</span></div>
+          <div class="tot"><span>Jumlah</span><span class="num" id="sum-total">–</span></div>
+        </div>
+        <p class="pay-note"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Bayaran diproses oleh Stripe. Kami tidak simpan butiran kad bank anda.</p>
+      </aside>
+    </div>
+    <noscript><p class="form-err" style="margin-top:16px">Borang tempahan perlukan JavaScript. Sila hidupkan JavaScript dalam browser anda.</p></noscript>
+  </div>
+</section>
+
+<section id="soalan">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Soalan lazim</div>
+      <h2>Sebelum anda tempah.</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Telefon apa yang boleh tap kad ini?</summary><p>Kebanyakan telefon Android yang ada NFC (pastikan NFC dihidupkan dalam tetapan), dan iPhone XS atau lebih baru. Di iPhone, satu notifikasi akan muncul selepas tap. Tekan notifikasi itu untuk buka WhatsApp.</p></details>
+      <details><summary>Orang yang tap perlu install app?</summary><p>Tidak. Mereka hanya perlukan WhatsApp dalam telefon mereka.</p></details>
+      <details><summary>Adakah mesej terus dihantar?</summary><p>Tidak. Chat anda terbuka dengan ayat salam yang dah ditaip. Orang itu yang tekan Hantar, dan mereka boleh ubah mesej dahulu.</p></details>
+      <details><summary>Boleh tukar nombor atau ayat salam nanti?</summary><p>Boleh. Kad menyimpan pautan, bukan nombor anda. Hubungi kami dan kami kemas kini tanpa perlu tukar kad.</p></details>
+      <details><summary>Berapa lama kad akan siap?</summary><p>Kad diprogram dan diuji selepas bayaran diterima. Kami akan WhatsApp anda bila kad dipos, atau bila kad sedia untuk diambil.</p></details>
+      <details><summary>Di mana tempat pick up?</summary><p>Di Kota Bharu, Kelantan. Lokasi dan masa ambil ditetapkan melalui WhatsApp selepas bayaran.</p></details>
+      <details><summary>Cara bayaran?</summary><p>Bayaran dibuat di halaman Stripe yang selamat. Kaedah bayaran yang tersedia dipaparkan di halaman itu.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> Connect Card · BinaLab</span>
+    <span><a href="/polisi">Terma dan polisi</a> · <a href="/polisi#hubungi">Hubungi kami</a></span>
+  </div>
+</footer>
+
+<script>
+"use strict";
+(function () {
+  const $ = id => document.getElementById(id);
+  const rm = sen => "RM" + (sen / 100).toFixed(2);
+  const form = $("order"), nameEl = $("name"), waEl = $("whatsapp"), grEl = $("greeting"), agreeEl = $("agree"), payBtn = $("pay");
+  let prices = null, greetingEdited = false;
+  $("yr").textContent = new Date().getFullYear();
+
+  const defaultGreeting = n => n ? `Hi ${n}, salam kenal! 👋` : "Hi, salam kenal! 👋";
+
+  function normPhone(raw) {
+    let d = String(raw || "").replace(/\D/g, "");
+    if (d.startsWith("0")) d = "6" + d;
+    if (d.startsWith("1")) d = "60" + d;
+    return /^601\d{8,9}$/.test(d) ? d : "";
+  }
+
+  function selectedDelivery() {
+    const r = form.querySelector('input[name="delivery"]:checked');
+    return r ? r.value : "";
+  }
+
+  function updatePreview() {
+    const n = nameEl.value.trim();
+    if (!greetingEdited) grEl.value = defaultGreeting(n);
+    $("pv-name").textContent = n || "Nama anda";
+    $("pv-initial").textContent = n ? n[0].toUpperCase() : "?";
+    $("pv-bubble").textContent = grEl.value.trim() || " ";
+    $("greeting-count").textContent = `${grEl.value.length}/160`;
+  }
+
+  function updateTotals() {
+    if (!prices) return;
+    const d = prices.delivery[selectedDelivery()];
+    $("sum-card").textContent = rm(prices.product.price);
+    $("sum-del-label").textContent = d ? d.label : "Penghantaran";
+    $("sum-del").textContent = d ? (d.fee ? rm(d.fee) : "Percuma") : "Pilih di borang";
+    $("sum-total").textContent = d ? rm(prices.product.price + d.fee) : "–";
+    payBtn.textContent = d ? `Bayar ${rm(prices.product.price + d.fee)}` : "Teruskan ke bayaran";
+  }
+
+  function setErr(field, msg) {
+    const e = $(field + "-err"); if (e) e.textContent = msg || "";
+    const input = field === "delivery" ? null : $(field);
+    if (input) { input.classList.toggle("invalid", !!msg); input.setAttribute("aria-invalid", msg ? "true" : "false"); }
+  }
+  function clearErrs() { ["name", "whatsapp", "greeting", "delivery", "agree"].forEach(f => setErr(f, "")); $("form-err").textContent = ""; }
+
+  function validate() {
+    const errs = {};
+    if (nameEl.value.trim().length < 2) errs.name = "Isi nama paparan (sekurang-kurangnya 2 huruf).";
+    if (!normPhone(waEl.value)) errs.whatsapp = "Isi nombor WhatsApp Malaysia yang sah, contoh 012-345 6789.";
+    if (!grEl.value.trim()) errs.greeting = "Isi ayat salam.";
+    if (!selectedDelivery()) errs.delivery = "Pilih cara penghantaran.";
+    if (!agreeEl.checked) errs.agree = "Sila setuju dengan terma dan polisi.";
+    return errs;
+  }
+
+  function showErrs(errs) {
+    Object.entries(errs).forEach(([k, v]) => setErr(k, v));
+    const first = ["name", "whatsapp", "greeting", "delivery", "agree"].find(k => errs[k]);
+    if (first) {
+      const el = first === "delivery" ? form.querySelector('input[name="delivery"]') : $(first);
+      if (el) el.focus();
+    }
+  }
+
+  nameEl.addEventListener("input", () => { setErr("name", ""); updatePreview(); });
+  grEl.addEventListener("input", () => { greetingEdited = grEl.value.trim() !== "" && grEl.value !== defaultGreeting(nameEl.value.trim()); setErr("greeting", ""); updatePreview(); });
+  waEl.addEventListener("input", () => setErr("whatsapp", ""));
+  waEl.addEventListener("blur", () => { if (waEl.value.trim() && !normPhone(waEl.value)) setErr("whatsapp", "Nombor ini nampak tak lengkap. Contoh: 012-345 6789."); });
+  agreeEl.addEventListener("change", () => setErr("agree", ""));
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    clearErrs();
+    const errs = validate();
+    if (Object.keys(errs).length) return showErrs(errs);
+    payBtn.disabled = true;
+    const label = payBtn.textContent;
+    payBtn.textContent = "Membuka halaman bayaran…";
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: nameEl.value, whatsapp: waEl.value, greeting: grEl.value, delivery: selectedDelivery(), agree: agreeEl.checked })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.url) { location.href = data.url; return; }
+      if (data.fields) showErrs(data.fields);
+      $("form-err").textContent = data.error || "Tak dapat buka halaman bayaran. Sila cuba lagi.";
+    } catch (err) {
+      $("form-err").textContent = "Tiada sambungan internet. Sila semak sambungan dan cuba lagi.";
+    }
+    payBtn.disabled = false;
+    payBtn.textContent = label;
+  });
+
+  fetch("/prices.json").then(r => r.json()).then(p => {
+    prices = p;
+    $("delivery-opts").innerHTML = Object.entries(p.delivery).map(([k, d]) => `
+      <label class="opt"><input type="radio" name="delivery" value="${k}"><span>${d.label}<small>${d.ship ? "Alamat diisi di halaman bayaran" : "Lokasi dan masa ditetapkan melalui WhatsApp"}</small></span><b>${d.fee ? rm(d.fee) : "Percuma"}</b></label>`).join("");
+    $("delivery-opts").addEventListener("change", () => { setErr("delivery", ""); updateTotals(); });
+    updateTotals();
+  }).catch(() => { $("form-err").textContent = "Tak dapat muat harga. Sila muat semula page."; });
+
+  updatePreview();
+})();
+</script>
+</body>
+</html>
